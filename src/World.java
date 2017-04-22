@@ -15,8 +15,8 @@ public class World
 		Random rand = new Random();
 		int islandX = rand.nextInt(100);
 		int islandY = rand.nextInt(100);
-		for(int x = islandX - 50; x < islandX + 50; x++)
-			for(int y = islandY - 50; y < islandY + 50; y++)
+		for(int x = islandX - 25; x < islandX + 25; x++)
+			for(int y = islandY - 25; y < islandY + 25; y++)
 				setTile(x, y, Tile.Grass);
 		entities = new ArrayList<>();
 		entities.add(new Tree(islandX, islandY));

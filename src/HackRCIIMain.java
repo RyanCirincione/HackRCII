@@ -1,5 +1,7 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,6 +14,8 @@ public class HackRCIIMain extends JPanel
 
 	
 	World world;
+	
+	Rectangle camera;
 	
 	public static void main(String[] args)
 	{
@@ -41,6 +45,7 @@ public class HackRCIIMain extends JPanel
 	{
 		this.setPreferredSize(new Dimension(S_WIDTH, S_HEIGHT));
 		world = new World();
+		camera = new Rectangle(0, 0, S_WIDTH / 16, S_HEIGHT / 16);
 	}
 	
 	public void tick()
@@ -50,5 +55,10 @@ public class HackRCIIMain extends JPanel
 	
 	public void paintComponent(Graphics gr)
 	{
+		super.paintComponent(gr);
+		Graphics2D g2d = (Graphics2D)gr;
+		for(int x = 0; x < 100; x++)
+			for(int y = 0; y < 100; y++)
+				g2d.drawImage(world.getTile(x, y).img, x * 16 - camera.x, y * 16 - camera.y, 16, 16, null);
 	}
 }
