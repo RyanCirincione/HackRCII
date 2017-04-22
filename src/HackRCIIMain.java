@@ -10,6 +10,9 @@ public class HackRCIIMain extends JPanel
 {
 	private static final long serialVersionUID = 7963834715523348799L;
 
+	
+	World world;
+	
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame("Hack RC II");
@@ -37,15 +40,15 @@ public class HackRCIIMain extends JPanel
 	public HackRCIIMain()
 	{
 		this.setPreferredSize(new Dimension(S_WIDTH, S_HEIGHT));
+		world = new World();
 	}
 	
 	public void tick()
 	{
-		
+		world.step();
 	}
 	
 	public void paintComponent(Graphics gr)
 	{
-		
 	}
 }
