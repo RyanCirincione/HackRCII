@@ -16,6 +16,7 @@ public class Tree extends Entity
 		super(x, y);
 	}
 	
+	@Override
 	public void step(World world)
 	{
 		super.step(world);
