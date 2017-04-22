@@ -41,4 +41,11 @@ public class World
 		y = ((y % floor[x].length) + floor[x].length) % floor[x].length;
 		floor[x][y] = tile;
 	}
+	
+	public Tile getTile(int x, int y)
+	{
+		x = ((x % floor.length) + floor.length) % floor.length;
+		y = ((y % floor[x].length) + floor[x].length) % floor[x].length;
+		return floor[x][y];
+	}
 }
