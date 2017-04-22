@@ -1,5 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -11,6 +12,20 @@ public enum Tile
 	public BufferedImage img;
 	Tile(String s)
 	{
-		img = ImageIO.read(new File(s));
+		BufferedImage temp = null;
+		try
+		{
+			temp = ImageIO.read(new File("res/unknown.png"));
+		} catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		try
+		{
+			img = ImageIO.read(new File(s));
+		} catch (IOException e)
+		{
+			img = temp;
+		}
 	}
 }
