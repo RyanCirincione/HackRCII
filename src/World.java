@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class World 
 {
 	private Tile[][] floor;
+	public ArrayList<Entity> entities;
 	
 	public World()
 	{
@@ -16,6 +18,21 @@ public class World
 		for(int x = islandX - 50; x < islandX + 50; x++)
 			for(int y = islandY - 50; y < islandY + 50; y++)
 				setTile(x, y, Tile.Grass);
+		entities = new ArrayList<>();
+		entities.add(new Tree(islandX, islandY));
+	}
+	
+	public void step()
+	{
+		entities.forEach(e -> e.step(this));
+	}
+	
+	public boolean isFree(int x, int y)
+	{
+		for(Entity e : entities)
+			if(e.x == x && e.y == y)
+				return false;
+		return true;
 	}
 	
 	public void setTile(int x, int y, Tile tile)
