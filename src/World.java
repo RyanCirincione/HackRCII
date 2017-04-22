@@ -18,6 +18,26 @@ public class World
 		for(int x = islandX - 25; x < islandX + 25; x++)
 			for(int y = islandY - 25; y < islandY + 25; y++)
 				setTile(x, y, Tile.Grass);
+		for(int x = 0; x < floor.length; x++)
+		{
+			for(int y = 0; y < floor[x].length; y++)
+			{
+				boolean set = false;
+				if(getTile(x, y) != Tile.Water)
+				{
+					for(int i = -1; !set && i <= 1; i++)
+						for(int j = -1; ! set && j <= 1; j++)
+						{
+							if(getTile(x + i, y + j) == Tile.Water)
+							{
+								setTile(x, y, Tile.Sand);
+								set = false;
+							}
+						}
+				
+				}
+			}
+		}
 		entities = new ArrayList<>();
 		entities.add(new Tree(islandX, islandY));
 	}
