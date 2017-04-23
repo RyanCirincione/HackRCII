@@ -45,6 +45,7 @@ public class HackRCIIMain extends JPanel
 			KEYBOARD_WIDTH = S_WIDTH - KEYBOARD_START_X*2, KEYBOARD_HEIGHT = S_HEIGHT - KEYBOARD_START_Y*2,
 			TRANSITION = 5;
 	ArrayList<Tile> tiles;
+	ArrayList<Hazard> hazards;
 	BufferedImage llamaImg;
 	Point llamaPos, oldPos;
 	int transition;
@@ -70,6 +71,9 @@ public class HackRCIIMain extends JPanel
 				tiles.add(new Tile(letters[y][x], getAbsX(x), getAbsY(y)));
 			}
 		}
+		
+		hazards = new ArrayList<>();
+		hazards.add(new Spear());
 
 		this.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e)
@@ -123,5 +127,7 @@ public class HackRCIIMain extends JPanel
 		}
 		gr.drawImage(llamaImg, llamaPos.x - (int)((llamaPos.x - oldPos.x) * (1.0 - (double)transition/TRANSITION)) - 16,
 				llamaPos.y - (int)((llamaPos.y - oldPos.y) * (1.0 - (double)transition/TRANSITION)) - 16, 32, 32, null);
+		for(Hazard h : hazards)
+			h.draw(gr);
 	}
 }
