@@ -6,13 +6,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -58,13 +55,7 @@ public class HackRCIIMain extends JPanel
 		llamaPos = new Point(KEYBOARD_START_X + BUFFER*1 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 1/2, KEYBOARD_START_Y + BUFFER*1 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 1/2);
 		oldPos = new Point(KEYBOARD_START_X + BUFFER*1 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 1/2, KEYBOARD_START_Y + BUFFER*1 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 1/2);
 		transition = TRANSITION;
-		try
-		{
-			llamaImg = ImageIO.read(new File("res/llama1.png"));
-		} catch (IOException e1)
-		{
-			e1.printStackTrace();
-		}
+		llamaImg = ImageLoader.loadImage("res/llama1.png");
 		
 		tiles = new ArrayList<Tile>();
 		char[][] letters = {
