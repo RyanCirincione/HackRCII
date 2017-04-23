@@ -29,11 +29,11 @@ public class Spear implements Hazard
 		case Top:
 		case Bottom:
 			x = HackRCIIMain.getAbsX(rand.nextInt(10));
-			y = HackRCIIMain.getAbsY(1 + direction.y * 2);
+			y = HackRCIIMain.getAbsY(1 + direction.y * -2);
 			break;
 		case Left:
 		case Right:
-			x = HackRCIIMain.getAbsX(5 + direction.x * 6);
+			x = HackRCIIMain.getAbsX(5 + direction.x * -6);
 			y = HackRCIIMain.getAbsY(rand.nextInt(3));
 			break;
 		default:
@@ -52,7 +52,8 @@ public class Spear implements Hazard
 	@Override
 	public void step() 
 	{
-		
+		position.x += direction.x;
+		position.y += direction.y;
 	}
 
 	@Override
