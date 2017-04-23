@@ -10,14 +10,14 @@ public class World
 	{
 		floor = new Tile[100][100];
 		for(int x = 0; x < floor.length; x++)
-			for(int y = 0; y < floor[x].length; y++)
-				floor[x][y] = Tile.Water;
+			for(int y = 0; y < floor[x].length; y++);
+//				floor[x][y] = Tile.Water;
 		Random rand = new Random();
 		int islandX = rand.nextInt(100);
 		int islandY = rand.nextInt(100);
 		for(int x = islandX - 50; x < islandX + 50; x++)
-			for(int y = islandY - 50; y < islandY + 50; y++)
-				setTile(x, y, Tile.Grass);
+			for(int y = islandY - 50; y < islandY + 50; y++);
+//				setTile(x, y, Tile.Grass);
 		entities = new ArrayList<>();
 		entities.add(new Tree(islandX, islandY));
 	}
