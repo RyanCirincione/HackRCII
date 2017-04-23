@@ -52,6 +52,7 @@ public class HackRCIIMain extends JPanel
 	Point llamaPos, oldPos;
 	int transition, health;
 	final int MAX_HEALTH = 10;
+	int score=0;
 	
 	public HackRCIIMain()
 	{
@@ -113,6 +114,7 @@ public class HackRCIIMain extends JPanel
 	
 	public void tick()
 	{
+		score=score+1;
 		if(transition < TRANSITION)
 			transition++;
 		for(Iterator<Hazard> hazard = hazards.iterator(); hazard.hasNext(); )
@@ -151,8 +153,7 @@ public class HackRCIIMain extends JPanel
 		super.paintComponent(gr);
 		
 		gr.drawImage(backgroundImg, 0, 0, S_WIDTH, S_HEIGHT, null);
-		gr.setColor(Color.green);
-		gr.drawRect(KEYBOARD_START_X, KEYBOARD_START_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
+		gr.drawString("Score: "+score, S_WIDTH/2-50, S_HEIGHT-2);
 		gr.setColor(Color.gray);
 		for(Tile t : tiles)
 		{
