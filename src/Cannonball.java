@@ -1,7 +1,6 @@
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Cannonball extends Spear
+public class Cannonball extends LinearHazard
 {
 	
 	static BufferedImage img;
@@ -12,16 +11,15 @@ public class Cannonball extends Spear
 	}
 	
 	@Override
-	public void step() 
+	protected BufferedImage img()
 	{
-		position.x += direction.x * 3;
-		position.y += direction.y * 3;
+		return img;
 	}
 	
 	@Override
-	public void draw(Graphics g) 
+	protected int speed()
 	{
-		g.drawImage(img, position.x, position.y, null);
+		return 3;
 	}
 	
 	@Override
