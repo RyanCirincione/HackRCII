@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Supplier;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 public class HackRCIIMain extends JPanel
 {
 	private static final long serialVersionUID = 7963834715523348799L;
+	
 
 	Rectangle2D camera;
 	
@@ -117,8 +119,14 @@ public class HackRCIIMain extends JPanel
 				System.out.println("YOU DIED");
 			}
 		}
-		if(Math.random() < 0.01)
-			hazards.add(new Spear());
+		if(Math.random() < 0.001)
+		{
+			double rand = Math.random();
+			if(rand < 0.5)
+				hazards.add(new Spear());
+			else
+				hazards.add(new Cannonball());
+		}
 	}
 	
 	public void paintComponent(Graphics gr)
