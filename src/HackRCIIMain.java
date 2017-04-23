@@ -111,6 +111,8 @@ public class HackRCIIMain extends JPanel
 			transition++;
 		for(Hazard h : hazards)
 			h.step();
+		if(Math.random() < 0.01)
+			hazards.add(new Spear());
 	}
 	
 	public void paintComponent(Graphics gr)
