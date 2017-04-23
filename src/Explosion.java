@@ -21,7 +21,7 @@ public class Explosion implements Hazard
 	}
 
 	@Override
-	public void step() 
+	public void step(HackRCIIMain main) 
 	{
 		radius += 1;
 	}

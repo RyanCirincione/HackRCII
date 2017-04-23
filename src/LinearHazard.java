@@ -44,11 +44,11 @@ public abstract class LinearHazard implements Hazard
 	@Override
 	public boolean hitsLlama(Point llama) 
 	{
-		return llama.distanceSq(position) <= 32 * 32;
+		return llama.distanceSq(position) <= 16 * 16;
 	}
 
 	@Override
-	public void step() 
+	public void step(HackRCIIMain main) 
 	{
 		position.x += direction.x * speed();
 		position.y += direction.y * speed();
@@ -68,5 +68,11 @@ public abstract class LinearHazard implements Hazard
 	public int damageDone()
 	{
 		return 1;
+	}
+	
+	@Override
+	public boolean shouldDie()
+	{
+		return false;
 	}
 }

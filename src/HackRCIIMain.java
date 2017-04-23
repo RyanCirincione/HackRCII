@@ -47,7 +47,7 @@ public class HackRCIIMain extends JPanel
 			KEYBOARD_WIDTH = S_WIDTH - KEYBOARD_START_X*2, KEYBOARD_HEIGHT = S_HEIGHT - KEYBOARD_START_Y*2,
 			TRANSITION = 5;
 	ArrayList<Tile> tiles;
-	ArrayList<Hazard> hazards;
+	ArrayList<Hazard> hazards, buffer;
 	BufferedImage llamaImg, backgroundImg;
 	Point llamaPos, oldPos;
 	int transition, health;
@@ -77,6 +77,7 @@ public class HackRCIIMain extends JPanel
 		}
 		
 		hazards = new ArrayList<>();
+		buffer = new ArrayList<>();
 		hazards.add(new Spear());
 
 		this.addKeyListener(new KeyAdapter(){
@@ -117,20 +118,31 @@ public class HackRCIIMain extends JPanel
 		for(Iterator<Hazard> hazard = hazards.iterator(); hazard.hasNext(); )
 		{
 			Hazard h = hazard.next();
-			h.step();
-			if(h.hitsLlama(llamaPos))
+			if(h.shouldDie())
 			{
-				health -= h.damageDone();
 				hazard.remove();
 			}
+			else
+			{
+				h.step(this);
+				if(h.hitsLlama(llamaPos))
+				{
+					health -= h.damageDone();
+					hazard.remove();
+				}
+			}
 		}
+		hazards.addAll(buffer);
+		buffer.clear();
 		if(Math.random() < 0.01)
 		{
 			double rand = Math.random();
-			if(rand < 0.5)
+			if(rand < 0.4)
 				hazards.add(new Spear());
-			else
+			else if(rand < 0.8)
 				hazards.add(new Cannonball());
+			else
+				hazards.add(new Grenade());
 		}
 	}
 	
