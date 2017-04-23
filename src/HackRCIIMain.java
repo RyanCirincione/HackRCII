@@ -140,12 +140,14 @@ public class HackRCIIMain extends JPanel
 		if(Math.random() < 0.01)
 		{
 			double rand = Math.random();
-			if(rand < 0.4)
+			if(rand < 0.35)
 				hazards.add(new Spear());
-			else if(rand < 0.8)
+			else if(rand < 0.7)
 				hazards.add(new Cannonball());
-			else
+			else if(rand < 0.85)
 				hazards.add(new Grenade());
+			else 
+				hazards.add(new Nuke());
 		}
 		
 		if(health <= 0)
