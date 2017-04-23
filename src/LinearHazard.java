@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -56,7 +57,11 @@ public abstract class LinearHazard implements Hazard
 	@Override
 	public void draw(Graphics g) 
 	{
+		Graphics2D g2 = (Graphics2D)g;
+		g2.rotate(direction.getAngle() - Math.PI, position.x + img().getWidth() / 2, position.y + img().getHeight() / 2);
 		g.drawImage(img(), position.x, position.y, null);
+		g2.rotate(-(direction.getAngle() - Math.PI), position.x + img().getWidth() / 2, position.y + img().getHeight() / 2);
+
 	}
 	
 	@Override

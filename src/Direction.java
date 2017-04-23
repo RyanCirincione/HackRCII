@@ -20,6 +20,22 @@ public enum Direction
 		return null;
 	}
 	
+	public double getAngle()
+	{
+		switch(this)
+		{
+		case Left:
+			return Math.PI;
+		case Right:
+			return 0;
+		case Top:
+			return Math.PI / 2;
+		case Bottom:
+			return Math.PI * 3 / 2;
+		}
+		throw new RuntimeException("halp");
+	}
+	
 	Direction(int x, int y)
 	{
 		this.x = x;
