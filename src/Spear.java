@@ -45,7 +45,7 @@ public class Spear implements Hazard
 	@Override
 	public boolean hitsLlama(Point llama) 
 	{
-		return false;
+		return llama.distanceSq(position) <= 32 * 32;
 	}
 
 	@Override

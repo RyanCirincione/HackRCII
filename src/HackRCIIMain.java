@@ -110,7 +110,13 @@ public class HackRCIIMain extends JPanel
 		if(transition < TRANSITION)
 			transition++;
 		for(Hazard h : hazards)
+		{
 			h.step();
+			if(h.hitsLlama(llamaPos))
+			{
+				System.out.println("YOU DIED");
+			}
+		}
 		if(Math.random() < 0.01)
 			hazards.add(new Spear());
 	}
