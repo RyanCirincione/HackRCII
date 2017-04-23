@@ -6,4 +6,5 @@ public interface Hazard
 	boolean hitsLlama(Point llama);
 	void step();
 	void draw(Graphics g);
+	int damageDone();
 }

@@ -23,4 +23,10 @@ public class Cannonball extends Spear
 	{
 		g.drawImage(img, position.x, position.y, null);
 	}
+	
+	@Override
+	public int damageDone()
+	{
+		return 3;
+	}
 }

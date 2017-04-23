@@ -60,4 +60,10 @@ public class Spear implements Hazard
 	{
 		g.drawImage(img, position.x, position.y, null);
 	}
+	
+	@Override
+	public int damageDone()
+	{
+		return 1;
+	}
 }

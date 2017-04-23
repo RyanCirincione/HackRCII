@@ -7,9 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Supplier;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,7 +50,8 @@ public class HackRCIIMain extends JPanel
 	ArrayList<Hazard> hazards;
 	BufferedImage llamaImg, backgroundImg;
 	Point llamaPos, oldPos;
-	int transition;
+	int transition, health;
+	final int MAX_HEALTH = 10;
 	
 	public HackRCIIMain()
 	{
@@ -94,6 +95,7 @@ public class HackRCIIMain extends JPanel
 				}
 			}
 		});
+		health = MAX_HEALTH;
 		this.setFocusable(true);
 		this.requestFocus();
 	}
@@ -112,12 +114,14 @@ public class HackRCIIMain extends JPanel
 	{
 		if(transition < TRANSITION)
 			transition++;
-		for(Hazard h : hazards)
+		for(Iterator<Hazard> hazard = hazards.iterator(); hazard.hasNext(); )
 		{
+			Hazard h = hazard.next();
 			h.step();
 			if(h.hitsLlama(llamaPos))
 			{
-				System.out.println("YOU DIED");
+				health -= h.damageDone();
+				hazard.remove();
 			}
 		}
 		if(Math.random() < 0.01)
@@ -149,5 +153,7 @@ public class HackRCIIMain extends JPanel
 				llamaPos.y - (int)((llamaPos.y - oldPos.y) * (1.0 - (double)transition/TRANSITION)) - 16, 32, 32, null);
 		for(Hazard h : hazards)
 			h.draw(gr);
+		gr.setColor(new Color(255, 64, 64));
+		gr.fillRect(100, 30, 600 * health / MAX_HEALTH, 10);
 	}
 }
