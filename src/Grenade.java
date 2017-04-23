@@ -24,11 +24,8 @@ public class Grenade implements Hazard
 		position = new Point(rand.nextInt(800), rand.nextInt(600));
 		angle = 0;
 		timer = -1;
-		do
-		{
-			targetX = HackRCIIMain.getAbsX(rand.nextInt(10));
-			targetY = HackRCIIMain.getAbsY(rand.nextInt(3));
-		} while(position.distance(targetX, targetY) <  100);
+		targetX = HackRCIIMain.getAbsX(rand.nextInt(10));
+		targetY = HackRCIIMain.getAbsY(rand.nextInt(3));
 	}
 	
 	
@@ -43,13 +40,11 @@ public class Grenade implements Hazard
 	{
 		if(position.distance(targetX, targetY) > 16)
 		{
-			double dx = position.x - targetX;
-			double dy = position.y - targetY;
+			double dx = targetX - position.x;
+			double dy = targetY - position.y;
 			double length = Math.sqrt(dx * dx + dy * dy);
-			dx = dx / length;
-			dy = dy / length;
-			position.x -= dx;
-			position.y -= dy;
+			position.x += dx / length;
+			position.y += dy / length;
 		}
 		else if(timer == -1)
 		{
