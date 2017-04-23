@@ -48,7 +48,7 @@ public class HackRCIIMain extends JPanel
 			TRANSITION = 5;
 	ArrayList<Tile> tiles;
 	ArrayList<Hazard> hazards;
-	BufferedImage llamaImg;
+	BufferedImage llamaImg, backgroundImg;
 	Point llamaPos, oldPos;
 	int transition;
 	
@@ -59,6 +59,7 @@ public class HackRCIIMain extends JPanel
 		oldPos = new Point(KEYBOARD_START_X + BUFFER*1 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 1/2, KEYBOARD_START_Y + BUFFER*1 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 1/2);
 		transition = TRANSITION;
 		llamaImg = ImageLoader.loadImage("res/llama1.png");
+		backgroundImg = ImageLoader.loadImage("res/background.png");
 		
 		tiles = new ArrayList<Tile>();
 		char[][] letters = {
@@ -133,6 +134,7 @@ public class HackRCIIMain extends JPanel
 	{
 		super.paintComponent(gr);
 		
+		gr.drawImage(backgroundImg, 0, 0, S_WIDTH, S_HEIGHT, null);
 		gr.setColor(Color.green);
 		gr.drawRect(KEYBOARD_START_X, KEYBOARD_START_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
 		gr.setColor(Color.gray);
