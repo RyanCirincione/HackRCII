@@ -8,7 +8,7 @@ public class Cannonball extends Spear
 	
 	static
 	{
-		img = ImageLoader.loadImage("res/spear.png");
+		img = ImageLoader.loadImage("res/cannonball.png");
 	}
 	
 	@Override
