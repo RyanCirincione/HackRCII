@@ -109,6 +109,8 @@ public class HackRCIIMain extends JPanel
 	{
 		if(transition < TRANSITION)
 			transition++;
+		for(Hazard h : hazards)
+			h.step();
 	}
 	
 	public void paintComponent(Graphics gr)
