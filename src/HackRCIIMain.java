@@ -1,11 +1,18 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -40,13 +47,26 @@ public class HackRCIIMain extends JPanel
 	}
 	
 	final int S_WIDTH = 800, S_HEIGHT = 400, BUFFER = 20, KEYBOARD_START_X = 50, KEYBOARD_START_Y = 75,
-			KEYBOARD_WIDTH = S_WIDTH - KEYBOARD_START_X*2, KEYBOARD_HEIGHT = S_HEIGHT - KEYBOARD_START_Y*2;
+			KEYBOARD_WIDTH = S_WIDTH - KEYBOARD_START_X*2, KEYBOARD_HEIGHT = S_HEIGHT - KEYBOARD_START_Y*2,
+			TRANSITION = 5;
 	ArrayList<Tile> tiles;
+	BufferedImage llamaImg;
+	Point llamaPos, oldPos;
+	int transition;
 	
 	public HackRCIIMain()
 	{
 		this.setPreferredSize(new Dimension(S_WIDTH, S_HEIGHT));
-		world = new World();
+		llamaPos = new Point(KEYBOARD_START_X + BUFFER*1 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 1/2, KEYBOARD_START_Y + BUFFER*1 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 1/2);
+		oldPos = new Point(KEYBOARD_START_X + BUFFER*1 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 1/2, KEYBOARD_START_Y + BUFFER*1 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 1/2);
+		transition = TRANSITION;
+		try
+		{
+			llamaImg = ImageIO.read(new File("res/llama1.png"));
+		} catch (IOException e1)
+		{
+			e1.printStackTrace();
+		}
 		
 		tiles = new ArrayList<Tile>();
 		tiles.add(new Tile('q', KEYBOARD_START_X + BUFFER*1 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 1/2, KEYBOARD_START_Y + BUFFER*1 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 1/2));
@@ -81,14 +101,30 @@ public class HackRCIIMain extends JPanel
 		tiles.add(new Tile(',', KEYBOARD_START_X + BUFFER*8 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 15/2, KEYBOARD_START_Y + BUFFER*3 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 5/2));
 		tiles.add(new Tile('.', KEYBOARD_START_X + BUFFER*9 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 17/2, KEYBOARD_START_Y + BUFFER*3 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 5/2));
 		tiles.add(new Tile('/', KEYBOARD_START_X + BUFFER*10 + (KEYBOARD_WIDTH - 11*BUFFER)/10 * 19/2, KEYBOARD_START_Y + BUFFER*3 + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * 5/2));
-		//width = 11 * buffer + 10 * width
-		//height = 4 * buffer + 3 * height
+		this.addKeyListener(new KeyAdapter(){
+			public void keyPressed(KeyEvent e)
+			{
+				if(transition == TRANSITION)
+				{
+					for(Tile t : tiles)
+						if(e.getKeyChar() == t.key)
+						{
+							oldPos.setLocation(llamaPos);
+							llamaPos.setLocation(t.location);
+							transition = 0;
+							break;
+						}
+				}
+			}
+		});
+		this.setFocusable(true);
+		this.requestFocus();
 	}
 	
 	public void tick()
 	{
-		world.step();
-		camera.setRect(camera.getX() + 0.1, camera.getY() + 0.1, camera.getWidth(), camera.getHeight());
+		if(transition < TRANSITION)
+			transition++;
 	}
 	
 	public void paintComponent(Graphics gr)
@@ -105,5 +141,7 @@ public class HackRCIIMain extends JPanel
 					(KEYBOARD_HEIGHT - 4*BUFFER)/3, 3, 3);
 			gr.drawString((""+t.key).toUpperCase(), t.location.x - 4, t.location.y + 4);
 		}
+		gr.drawImage(llamaImg, llamaPos.x - (int)((llamaPos.x - oldPos.x) * (1.0 - (double)transition/TRANSITION)) - 16,
+				llamaPos.y - (int)((llamaPos.y - oldPos.y) * (1.0 - (double)transition/TRANSITION)) - 16, 32, 32, null);
 	}
 }
