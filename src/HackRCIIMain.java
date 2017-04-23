@@ -44,7 +44,7 @@ public class HackRCIIMain extends JPanel
 		}, 0, 1000/60);
 	}
 	
-	final int S_WIDTH = 800, S_HEIGHT = 400, BUFFER = 20, KEYBOARD_START_X = 50, KEYBOARD_START_Y = 75,
+	static final int S_WIDTH = 800, S_HEIGHT = 400, BUFFER = 20, KEYBOARD_START_X = 50, KEYBOARD_START_Y = 75,
 			KEYBOARD_WIDTH = S_WIDTH - KEYBOARD_START_X*2, KEYBOARD_HEIGHT = S_HEIGHT - KEYBOARD_START_Y*2,
 			TRANSITION = 5;
 	ArrayList<Tile> tiles;
@@ -100,12 +100,12 @@ public class HackRCIIMain extends JPanel
 		this.requestFocus();
 	}
 	
-	public int getAbsX(int tileX)
+	public static int getAbsX(int tileX)
 	{
 		return KEYBOARD_START_X + BUFFER*(tileX+1) + (KEYBOARD_WIDTH - 11*BUFFER)/10 * ((tileX * 2) + 1)/2;
 	}
 	
-	public int getAbsY(int tileY)
+	public static int getAbsY(int tileY)
 	{
 		return KEYBOARD_START_Y + BUFFER*(tileY + 1) + (KEYBOARD_HEIGHT - 4*BUFFER)/3 * ((tileY * 2) + 1)/2; 
 	}
