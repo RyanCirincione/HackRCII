@@ -120,7 +120,7 @@ public class HackRCIIMain extends JPanel
 				System.out.println("YOU DIED");
 			}
 		}
-		if(Math.random() < 0.001)
+		if(Math.random() < 0.01)
 		{
 			double rand = Math.random();
 			if(rand < 0.5)
