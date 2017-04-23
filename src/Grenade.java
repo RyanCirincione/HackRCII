@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -15,13 +16,13 @@ public class Grenade implements Hazard
 		img = ImageLoader.loadImage("res/grenade.png");
 	}
 	
-	Point position;
+	Point2D position;
 	int targetX, targetY, timer;
 	double angle;
 	
 	public Grenade()
 	{
-		position = new Point(rand.nextInt(800), rand.nextInt(600));
+		position = new Point2D.Double(rand.nextInt(800), rand.nextInt(600));
 		angle = 0;
 		timer = -1;
 		targetX = HackRCIIMain.getAbsX(rand.nextInt(10));
@@ -40,11 +41,10 @@ public class Grenade implements Hazard
 	{
 		if(position.distance(targetX, targetY) > 16)
 		{
-			double dx = targetX - position.x;
-			double dy = targetY - position.y;
+			double dx = targetX - position.getX();
+			double dy = targetY - position.getY();
 			double length = Math.sqrt(dx * dx + dy * dy);
-			position.x += dx / length;
-			position.y += dy / length;
+			position.setLocation(position.getX() + dx / length, position.getY() + dy / length);
 		}
 		else if(timer == -1)
 		{
@@ -62,9 +62,9 @@ public class Grenade implements Hazard
 	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
-		g2.rotate(angle, position.x + img.getWidth() / 2, position.y + img.getHeight() / 2);
-		g2.drawImage(img, position.x, position.y, null);
-		g2.rotate(-angle, position.x + img.getWidth() / 2, position.y + img.getHeight() / 2);
+		g2.rotate(angle, position.getX() + img.getWidth() / 2, position.getY() + img.getHeight() / 2);
+		g2.drawImage(img, (int)position.getX(), (int)position.getY(), null);
+		g2.rotate(-angle, position.getX() + img.getWidth() / 2, position.getY() + img.getHeight() / 2);
 		angle += 0.05;
 	}
 
