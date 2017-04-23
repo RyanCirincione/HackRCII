@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,6 +14,8 @@ public class HackRCIIMain extends JPanel
 	private static final long serialVersionUID = 7963834715523348799L;
 
 	World world;
+	
+	Rectangle2D camera;
 	
 	public static void main(String[] args)
 	{
@@ -85,10 +88,13 @@ public class HackRCIIMain extends JPanel
 	public void tick()
 	{
 		world.step();
+		camera.setRect(camera.getX() + 0.1, camera.getY() + 0.1, camera.getWidth(), camera.getHeight());
 	}
 	
 	public void paintComponent(Graphics gr)
 	{
+		super.paintComponent(gr);
+		
 		gr.setColor(Color.green);
 		gr.drawRect(KEYBOARD_START_X, KEYBOARD_START_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
 		gr.setColor(Color.gray);
