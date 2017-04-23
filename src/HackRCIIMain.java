@@ -20,8 +20,6 @@ public class HackRCIIMain extends JPanel
 {
 	private static final long serialVersionUID = 7963834715523348799L;
 
-	World world;
-	
 	Rectangle2D camera;
 	
 	public static void main(String[] args)
