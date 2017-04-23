@@ -12,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class HackRCIIMain extends JPanel
@@ -145,6 +146,12 @@ public class HackRCIIMain extends JPanel
 				hazards.add(new Cannonball());
 			else
 				hazards.add(new Grenade());
+		}
+		
+		if(health <= 0)
+		{
+			JOptionPane.showMessageDialog(null, "Game Over!\nScore: " + score + "\nPress OK to close.");
+			System.exit(0);
 		}
 	}
 	
